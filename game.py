@@ -9,7 +9,7 @@ class Game:
     def __init__(self) -> None:
         self.board = Board()
 
-    ## these are methods to display 
+    ## these are methods to display
 
     def show_bg(self,surface):
         for row in range(ROWS):
@@ -26,11 +26,11 @@ class Game:
         for row in range(ROWS):
             for col in range(COLS):
                 if self.board.squares[row][col].has_piece():
-                    piece = self.board.squares[row][col]
+                    piece = self.board.squares[row][col].piece
 
-                    img = pygame.image.load(piece.texture())                            ## taking image from assests
+                    img = pygame.image.load(piece.texture)                            ## taking image from assests
 
                     img_center = col * SQSIZE + SQSIZE// 2, row * SQSIZE + SQSIZE// 2   ## image center
 
-                    piece.texture_rect  = img_center.get_rect(center = img_center)      ## 
+                    piece.texture_rect  = img.get_rect(center = img_center)      ## 
                     surface.blit(img,piece.texture_rect)                                ## to draw one img on other 
