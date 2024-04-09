@@ -30,7 +30,9 @@ class Board:
             self.square[row_pawn][col] = Square(row_pawn,col,Pawn(color))
 
         ##knights
-        
+        self.square[row_other][1] = Square(row_other,1,Knight(color))
+        self.square[row_other][6] = Square(row_other,6,Knight(color))
+
 
 b=Board()
 b._create()
