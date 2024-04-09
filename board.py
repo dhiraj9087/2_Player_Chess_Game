@@ -1,6 +1,6 @@
 from const import *
 from square import Square
-
+from piece import *
 
 class Board:
     
@@ -20,7 +20,17 @@ class Board:
 
 
     def _add_piece(self,color):
-        pass
+        if color=='white':
+            row_pawn, row_other = (6,7)
+        else:
+            row_pawn,row_other = (1,0)
+
+        #pawns
+        for col in range(COLS):
+            self.square[row_pawn][col] = Square(row_pawn,col,Pawn(color))
+
+        ##knights
+        
 
 b=Board()
 b._create()

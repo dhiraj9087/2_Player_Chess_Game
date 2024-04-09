@@ -9,6 +9,8 @@ class Piece:
 
         value_sign = 1 if color == "white" else -1   ## white have 1 value sign and black -1 as white is moving in up which is moving toward zero from negative in y axis and black is moving down which moving away from zero in downward dir
         self.value = value * value_sign
+        self.moves = []
+        self.moved = False
         self.texture = texture
         self.set_texture()
         self.texture_rect = texture_rect
