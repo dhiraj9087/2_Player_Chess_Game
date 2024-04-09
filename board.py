@@ -33,6 +33,12 @@ class Board:
         self.square[row_other][1] = Square(row_other,1,Knight(color))
         self.square[row_other][6] = Square(row_other,6,Knight(color))
 
+        # bishops
+        self.square[row_other][2] = Square(row_other,2,Bishop(color))
+        self.square[row_other][5] = Square(row_other,5,Bishop(color))
+
+        
+
 
 b=Board()
 b._create()
