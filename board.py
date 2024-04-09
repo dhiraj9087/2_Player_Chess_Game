@@ -8,6 +8,8 @@ class Board:
         self.square = [[0,0,0,0,0,0,0,0] for _ in range(COLS)]
 
         self._create()
+        self._add_piece('white')
+        self._add_piece('black')
 
     def _create(self):        # undersocere to show thes methods are private methods  
         
@@ -41,7 +43,7 @@ class Board:
         self.square[row_other][0] = Square(row_other,0,Rook(color))
         self.square[row_other][7] = Square(row_other,7,Rook(color))
 
-        #queen
+        #queen and king 
         self.square[row_other][3] = Square(row_other,3,Queen(color))
         self.square[row_other][4] = Square(row_other,4,King(color))
 

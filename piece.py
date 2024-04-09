@@ -3,8 +3,8 @@ import os
 
 class Piece:
 
-    def __init__(self,name,color,value,texture=None,texture_rect = None) -> None:
-        self.name=name
+    def __init__(self,name,color,value,texture=None,texture_rect = None):
+        self.name = name
         self.color = color
 
         value_sign = 1 if color == "white" else -1   ## white have 1 value sign and black -1 as white is moving in up which is moving toward zero from negative in y axis and black is moving down which moving away from zero in downward dir

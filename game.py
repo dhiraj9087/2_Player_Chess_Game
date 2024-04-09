@@ -1,11 +1,13 @@
 import pygame
-
+from board import Board
 from const import *
+from square import *
+from piece import *
 
 class Game:
     
     def __init__(self) -> None:
-        pass
+        self.board = Board()
 
     ## these are methods to display 
 
@@ -20,3 +22,15 @@ class Game:
 
                 pygame.draw.rect(surface,color,rect)
                 
+    def show_pieces(self,surface):
+        for row in range(ROWS):
+            for col in range(COLS):
+                if self.board.squares[row][col].has_piece():
+                    piece = self.board.squares[row][col]
+
+                    img = pygame.image.load(piece.texture())                            ## taking image from assests
+
+                    img_center = col * SQSIZE + SQSIZE// 2, row * SQSIZE + SQSIZE// 2   ## image center
+
+                    piece.texture_rect  = img_center.get_rect(center = img_center)      ## 
+                    surface.blit(img,piece.texture_rect)                                ## to draw one img on other 
