@@ -19,7 +19,8 @@ class Piece:
             )
 
 
-
+    def add_moves(self,move):
+        self.moves.append(move)
 
 
 class Pawn(Piece):
