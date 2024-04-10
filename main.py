@@ -36,6 +36,8 @@ class Main:
 
                     if board.squares[clicked_row][clicked_col].has_piece():     ## if clicked square has a piece 
                         piece = board.squares[clicked_row][clicked_col].piece
+                        dragger.save_initial(event.pos)
+                        dragger.drag_piece(piece)
 
                 elif event.type==pygame.MOUSEMOTION:         ## mouse motion
                     pass
