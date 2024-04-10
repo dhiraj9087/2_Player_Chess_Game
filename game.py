@@ -40,3 +40,18 @@ class Game:
 
                         piece.texture_rect  = img.get_rect(center = img_center)      ## 
                         surface.blit(img,piece.texture_rect)                                ## to draw one img on other 
+
+    def show_moves(self,surface):
+        if self.dragger.dragging:
+            piece = self.dragger.piece
+
+            # loop all valid moves
+            for move in piece.moves:
+                #color
+                color = '#C86464' if (move.final.row + move.final.col)%2==0 else '#C84646'
+
+                ## rect  
+                rect = (move.final.col*SQSIZE , move.final.row*SQSIZE,SQSIZE,SQSIZE)
+
+                ## blits
+                pygame.draw.rect(surface,color,rect)
