@@ -83,9 +83,39 @@ class Board:
                         ##append valid move
                         piece.add_move(move)
 
-        def starightline_moves():
-            pass
-        
+        def starightline_moves(incrs):
+            for incr in incrs:
+                row_incr,col_incr = incr
+                possible_move_row = row + row_incr
+                possible_move_col = col + col_incr 
+                while True:
+                    if Square.in_range(possible_move_row,possible_move_col):
+                        # create squares of possible new move 
+                        initial = Square(row,col)
+                        final  = Square(possible_move_row,possible_move_col)
+                        move = Move(initial,final)
+
+                        # empty
+                        if self.squares[possible_move_row][possible_move_col].isempty():
+                            # create new move
+                            piece.add_move(move)
+                            
+
+                        # has enemy pieces  = add move then  break
+                        if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
+                            # create new move
+                            piece.add_move(move)
+                            break
+                        # has team piece = break
+                        if self.squares[possible_move_row][possible_move_col].has_team_piece(piece.color):
+                            break
+
+                    else:
+                        break       # not in range
+
+                    possible_move_row += row_incr
+                    possible_move_col += col_incr
+
         if isinstance(piece,Pawn):                      ## same as piece.name == 'Pawn
             pawn_moves()
 
@@ -93,11 +123,31 @@ class Board:
             knight_moves()
 
         elif isinstance(piece,Bishop):
-            pass
+            starightline_moves([
+                (-1,1), ## up-right
+                (-1,-1),  ##up-left
+                (1,1), ## down-right
+                (1,-1) ## down- left
+
+            ])
         elif isinstance(piece,Rook):
-            pass
+            starightline_moves([
+                (-1,0), #up
+                (0,1),  #right
+                (1,0),  #down
+                (0,-1)  #left
+            ])
         elif isinstance(piece,Queen):
-            pass
+            starightline_moves([
+                (-1,1), ## up-right
+                (-1,-1),  ##up-left
+                (1,1), ## down-right
+                (1,-1), ## down- left
+                (-1,0), #up
+                (0,1),  #right
+                (1,0),   #down
+                (0,-1)  #left
+            ])
         elif isinstance(piece,King):
             pass
         
@@ -131,6 +181,7 @@ class Board:
         # bishops
         self.squares[row_other][2] = Square(row_other,2,Bishop(color))
         self.squares[row_other][5] = Square(row_other,5,Bishop(color))
+        # self.squares[4][5] = Square(4,5,Bishop(color))
 
         # rooks
         self.squares[row_other][0] = Square(row_other,0,Rook(color))
@@ -138,6 +189,7 @@ class Board:
 
         #queen and king 
         self.squares[row_other][3] = Square(row_other,3,Queen(color))
+        # self.squares[4][3] = Square(4,3,Queen(color))
         self.squares[row_other][4] = Square(row_other,4,King(color))
 
 b=Board()
