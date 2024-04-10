@@ -3,11 +3,13 @@ from board import Board
 from const import *
 from square import *
 from piece import *
+from dragger import *
 
 class Game:
     
     def __init__(self) -> None:
         self.board = Board()
+        self.dragger = Dragger()
 
     ## these are methods to display
 
