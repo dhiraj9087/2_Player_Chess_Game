@@ -13,6 +13,20 @@ class Dragger:
         self.intial_row = 0
         self.intial_col = 0
 
+    def update_blit(self,surface):                  ## here we did same what we did in show piece method in game.py
+        self.piece.set_texture(size=128)            ##texture
+        texture = self.piece.texture
+
+        img = pygame.image.load(texture)            ##img
+        img_center = (self.mouseX,self.mouseY)
+        self.piece.texture_rect = img.get_rect(center = img_center)
+
+
+        surface.blit(img,self.piece.texture_rect)     ## blits
+
+
+
+
     def update_mouse(self,pos):
         self.mouseX,self.mouseY = pos           ## pos = (xcordinate,ycordinate)
 

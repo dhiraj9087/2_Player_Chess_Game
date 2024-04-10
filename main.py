@@ -40,10 +40,15 @@ class Main:
                         dragger.drag_piece(piece)
 
                 elif event.type==pygame.MOUSEMOTION:         ## mouse motion
-                    pass
+                    if dragger.dragging:
+                        dragger.update_mouse(event.pos)
+
+                        dragger.update_blit(screen)
+
+
             
                 elif event.type==pygame.MOUSEBUTTONUP:       ## click release
-                    pass
+                    dragger.undrag_piece()
 
                 elif event.type==pygame.QUIT:                ## quit application
                     pygame.quit()
