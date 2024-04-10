@@ -23,12 +23,12 @@ class Board:
             ## vertical moves
             start = row + piece.dir
             end = row + (piece.dir * (1+steps))
-            for move_row in range(start,end,piece.dir):
-                if Square.in_range(move_row):
-                    if self.squares[move_row][col].isempty():
+            for possible_move_row in range(start,end,piece.dir):
+                if Square.in_range(possible_move_row):
+                    if self.squares[possible_move_row][col].isempty():
                         ## create initial and final move squares
                         initial = Square(row, col)
-                        final =Square(move_row,col)
+                        final =Square(possible_move_row,col)
                         move=Move(initial,final)
                         piece.add_move(move)
                     # blocked
@@ -39,6 +39,22 @@ class Board:
                     break
 
             ## diagonal moves
+            possible_move_row = row + piece.dir
+            possible_move_cols = [col-1,col+1]
+
+            for possible_move_col in possible_move_cols:
+                if Square.in_range(possible_move_row,possible_move_col):
+                    if self.squares[possible_move_row][possible_move_col].has_enemy_piece(piece.color):
+                        ## create initial 
+                        initial = Square(row,col)
+                        final = Square(possible_move_row,possible_move_col)
+
+                        ## create new move
+                        move = Move(initial,final)
+                        ## append new move
+
+                        piece.add_move(move)
+
 
         def knight_moves():
             ## 8 possible moves if there are all square empty
@@ -67,6 +83,9 @@ class Board:
                         ##append valid move
                         piece.add_move(move)
 
+        def starightline_moves():
+            pass
+        
         if isinstance(piece,Pawn):                      ## same as piece.name == 'Pawn
             pawn_moves()
 
