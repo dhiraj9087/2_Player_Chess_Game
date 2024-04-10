@@ -14,6 +14,32 @@ class Board:
 
     def calc_moves(self,piece,row,col):                 ## calculate all the possible and valide moves of a specific piece art specific position
         
+        def pawn_moves():
+            if piece.moved:
+                steps = 1   
+            else:
+                steps = 2                               ## means pawn is on staring position
+
+            ## vertical moves
+            start = row + piece.dir
+            end = row + (piece.dir * (1+steps))
+            for move_row in range(start,end,piece.dir):
+                if Square.in_range(move_row):
+                    if self.squares[move_row][col].isempty():
+                        ## create initial and final move squares
+                        initial = Square(row, col)
+                        final =Square(move_row,col)
+                        move=Move(initial,final)
+                        piece.add_move(move)
+                    # blocked
+                    else:
+                        break
+                # not in range
+                else:
+                    break
+
+            ## diagonal moves
+
         def knight_moves():
             ## 8 possible moves if there are all square empty
             possible_moves = [
@@ -42,7 +68,7 @@ class Board:
                         piece.add_move(move)
 
         if isinstance(piece,Pawn):                      ## same as piece.name == 'Pawn
-            pass
+            pawn_moves()
 
         elif isinstance(piece,Knight):
             knight_moves()
