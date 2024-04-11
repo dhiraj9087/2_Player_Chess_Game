@@ -7,10 +7,31 @@ class Board:
     
     def __init__(self) -> None:
         self.squares = [[0,0,0,0,0,0,0,0] for _ in range(COLS)]
-
+        self.last_move = None
         self._create()
         self._add_piece('white')
         self._add_piece('black')
+    
+    def move(self,piece,move):
+        initial = move.initial
+        final = move.final
+
+        # console board move update
+        self.squares[initial.row][initial.col].piece = None
+        self.squares[final.row][final.col].piece = piece
+
+        # move
+
+        piece.moved = True
+
+        # clear valid moves
+        piece.clear_moves()
+
+        # set last move
+        self.last_move = move
+
+    def valid_move(slef,piece,move):
+        return move in piece.moves
 
     def calc_moves(self,piece,row,col):                 ## calculate all the possible and valide moves of a specific piece art specific position
         
