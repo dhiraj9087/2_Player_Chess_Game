@@ -108,11 +108,15 @@ class Main:
                 elif event.type == pygame.KEYDOWN:           # key pressed
                     
                     # chnaging themes
-                    if event.type == pygame.K_t:
+                    if event.key == pygame.K_t:
                         game.change_theme()
 
-                    if event.type == pygame.K_r:
+                    if event.key == pygame.K_r:
                         game.reset()
+                        # screen = self.screen
+                        game = self.game
+                        board = self.game.board
+                        dragger = self.game.dragger
                 elif event.type==pygame.QUIT:                ## quit application
                     pygame.quit()
                     sys.exit()
