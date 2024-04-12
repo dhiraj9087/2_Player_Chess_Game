@@ -20,7 +20,10 @@ class Board:
         self.squares[initial.row][initial.col].piece = None
         self.squares[final.row][final.col].piece = piece
 
-        # move
+        #pawn promotion 
+        if isinstance(piece,Pawn):
+            self.check_promotion(piece,final)
+        # move  
         piece.moved = True
 
         # clear valid moves
@@ -29,8 +32,14 @@ class Board:
         # set last move
         self.last_move = move
 
-    def valid_move(slef,piece,move):
+    def valid_move(self,piece,move):
         return move in piece.moves
+
+    def check_promotion(self,piece,final):
+        if final.row == 0 or final.row == 7:
+            self.squares[final.row][final.col].piece = Queen(piece.color)
+
+
 
     def calc_moves(self,piece,row,col):                 ## calculate all the possible and valide moves of a specific piece art specific position
         
