@@ -12,12 +12,9 @@ class Config:
         self.theme = self.themes[self.index]
         # font 
         self.move_sound = Sound(
-            os.path.join('assets/sounds/move.wav')
-        )
-
+            os.path.join('assets/sounds/move.mp3'))
         self.capture_sound = Sound(
-            os.path.join('assets/sounds/capture.wav')
-        )
+            os.path.join('assets/sounds/capture.mp3'))
 
 
     def change_theme(self):
