@@ -6,7 +6,7 @@ class Square:
         self.row = row
         self.col = col
         self.piece = piece
-        
+        self.alphacol = self.ALPHACOLS[col]
     def __eq__(self,other):
         return self.row==other.row  and self.col==other.col
     
@@ -17,13 +17,13 @@ class Square:
     def isempty(self):
         return not self.has_piece()
 
-    def has_enemy_piece(self,color):
-        return self.has_piece() and self.piece.color != color
-
-    def has_team_piece(self,color):
+    def has_team_piece(self, color):
         return self.has_piece() and self.piece.color == color
+
+    def has_enemy_piece(self, color):
+        return self.has_piece() and self.piece.color != color
     
-    def isempty_or_rival(self,color):
+    def isempty_or_enemy(self,color):
         return self.isempty() or self.has_enemy_piece(color)
 
     @staticmethod
