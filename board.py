@@ -12,25 +12,33 @@ class Board:
         self._create()
         self._add_piece('white')
         self._add_piece('black')
-    
-    def move(self,piece,move):
+    def move(self, piece, move):
         initial = move.initial
         final = move.final
+
+        # Debug print statement
+        print(f"Moving {piece} from {initial.row},{initial.col} to {final.row},{final.col}")
 
         # console board move update
         self.squares[initial.row][initial.col].piece = None
         self.squares[final.row][final.col].piece = piece
 
         # pawn promotion 
-        if isinstance(piece,Pawn):
-            self.check_promotion(piece,final)
+        if isinstance(piece, Pawn):
+            self.check_promotion(piece, final)
 
         # king castling
-        if isinstance(piece,King):
-            if self.castling(initial,final):
+        if isinstance(piece, King):
+            if self.castling(initial, final):
                 diff = final.col - initial.col
-                rook = piece.left_rook if (diff<0) else piece.right_rook
-                self.move(rook,rook.moves[-1])
+                rook = piece.left_rook if (diff < 0) else piece.right_rook
+
+                # Ensure rook has moves before accessing the last move
+                if rook and rook.moves:
+                    print("Castling with rook")
+                    self.move(rook, rook.moves[-1])
+                else:
+                    print("Error: Rook has no available moves for castling")
 
         # move  
         piece.moved = True
@@ -40,6 +48,33 @@ class Board:
 
         # set last move
         self.last_move = move
+    # def move(self,piece,move):
+    #     initial = move.initial
+    #     final = move.final
+
+    #     # console board move update
+    #     self.squares[initial.row][initial.col].piece = None
+    #     self.squares[final.row][final.col].piece = piece
+
+    #     # pawn promotion 
+    #     if isinstance(piece,Pawn):
+    #         self.check_promotion(piece,final)
+
+    #     # king castling
+    #     if isinstance(piece,King):
+    #         if self.castling(initial,final):
+    #             diff = final.col - initial.col
+    #             rook = piece.left_rook if (diff<0) else piece.right_rook
+    #             self.move(rook,rook.moves[-1])
+
+    #     # move  
+    #     piece.moved = True
+
+    #     # clear valid moves
+    #     piece.clear_moves()
+
+    #     # set last move
+    #     self.last_move = move
 
     def valid_move(self,piece,move):
         return move in piece.moves
@@ -52,18 +87,35 @@ class Board:
         return abs(initial.col - final.col)==2
 
 
-    def in_check(self,piece,move):
-        temp_piece = copy.deepcopy(piece)
+    # def in_check(self,piece,move):
+    #     temp_piece = copy.deepcopy(piece)
+    #     temp_board = copy.deepcopy(self)
+    #     temp_board.move(temp_piece,move)
+
+    #     for row in range(ROWS):
+    #         for col in range(COLS):
+    #             if temp_board.squares[row][col].has_enemy_piece(piece.color):
+    #                 p = temp_board.squares[row][col].piece
+    #                 temp_board.calc_moves(p,row,col,bool=False)
+    #                 for m in p.moves:
+    #                     if isinstance(m.final.piece,King):
+    #                         return True
+    #     return False
+    def in_check(self, piece, move):
+        print(f"Checking if move {move} puts {piece} in check")
+
         temp_board = copy.deepcopy(self)
-        temp_board.move(temp_piece,move)
+        temp_piece = temp_board.squares[move.initial.row][move.initial.col].piece
+        temp_board.move(temp_piece, move)
 
         for row in range(ROWS):
             for col in range(COLS):
                 if temp_board.squares[row][col].has_enemy_piece(piece.color):
                     p = temp_board.squares[row][col].piece
-                    temp_board.calc_moves(p,row,col,bool=False)
+                    temp_board.calc_moves(p, row, col, bool=False)
                     for m in p.moves:
-                        if isinstance(m.final.piece,King):
+                        if isinstance(m.final.piece, King):
+                            print(f"Move {move} puts the king in check")
                             return True
         return False
 
