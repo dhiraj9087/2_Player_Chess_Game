@@ -107,6 +107,8 @@ class Main:
 
                             board.move(dragger.piece,move)
 
+                            board.set_true_en_passant(dragger.piece)
+
                             # show methods
                             game.show_bg(screen)
                             game.show_last_move(screen)
