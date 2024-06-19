@@ -133,5 +133,26 @@ class Game:
         else:
             self.config.move_sound.play()
 
+    def check_end_condition(self):
+        white_king = any(piece.name == 'king' and piece.color == 'white' for row in self.board.squares for piece in row if piece and isinstance(piece, Piece))
+        black_king = any(piece.name == 'king' and piece.color == 'black' for row in self.board.squares for piece in row if piece and isinstance(piece, Piece))
+        
+        if not white_king:
+            self.result = "Black wins!"
+        elif not black_king:
+            self.result = "White wins!"
+        elif not any(piece.moves for row in self.board.squares for piece in row if piece and isinstance(piece, Piece)):
+            self.result = "Draw!"
+
+    def show_result(self, surface):
+        if self.result:
+            font = pygame.font.SysFont('Arial', 50)
+            text_surface = font.render(self.result, True, (255, 0, 0))
+            rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+            surface.blit(text_surface, rect)
+
+
     def reset(self):
         self.__init__()
+
+    
