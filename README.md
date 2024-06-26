@@ -4,7 +4,7 @@ Welcome to my Chess Game project! This is a Python implementation of a basic che
 
 ## Overview
 
-This project aims to provide a simple yet functional chess game interface where players can enjoy playing against each other.
+This project aims to provide a simple yet functional chess game interface where players can enjoy playing against each other as well as playing against bot.
 
 ## Features
 
