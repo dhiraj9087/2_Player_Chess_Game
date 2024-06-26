@@ -18,7 +18,8 @@ This project aims to provide a simple yet functional chess game interface where 
 1. **Installation**: Make sure you have Python and Pygame installed on your system.
 2. **Clone the Repository**: Clone this repository to your local machine.
 3. **Run the Game**: Execute the `main.py` file to launch the game.
-4. **Game Controls**:
+4. **Game Mode**: For ai mode click `A`.
+5. **Game Controls**:
    - **Mouse Click**: Click on a piece to see the valid moves of that piece which will be shown in red color.
    - **Mouse Drag**: Drag a piece to move it to a valid square.
    - **Keyboard Shortcuts**:
