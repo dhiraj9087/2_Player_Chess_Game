@@ -4,7 +4,7 @@ from piece import *
 from move import *
 from sound import *
 import copy
-
+import chess
 class Board:
 
     def __init__(self) -> None:
@@ -539,20 +539,6 @@ class Board:
         self.squares[row_other][3] = Square(row_other,3,Queen(color))
         # # self.squares[4][3] = Square(4,3,Queen(color))
         self.squares[row_other][4] = Square(row_other,4,King(color))
-
-    # def get_all_possible_moves(self, color):
-    #     possible_moves = []
-    #     for row in range(ROWS):
-    #         for col in range(COLS):
-    #             square = self.squares[row][col]
-    #             if square.has_team_piece(color):
-    #                 piece = square.piece
-    #                 moves = piece.moves
-    #                 for move in moves:
-    #                     # Check if the move is valid
-    #                     if self.valid_move(piece, move):
-    #                         possible_moves.append(move)
-    #     return possible_moves
 
 b=Board()
 b._create()
