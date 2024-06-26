@@ -21,6 +21,7 @@ class Main:
         screen = self.screen
         game = self.game
         board = self.game.board
+        ai = self.game.ai
         dragger = self.game.dragger
 
 
@@ -40,6 +41,7 @@ class Main:
                     dragger.update_mouse(event.pos)
                     # print(event.pos)                        ## it is the position we click on board
 
+                    pos = event.pos
                     clicked_row = dragger.mouseY // SQSIZE
                     clicked_col = dragger.mouseX // SQSIZE
 
@@ -118,26 +120,69 @@ class Main:
                             # next player turn 
                             game.next_turn()
 
+                            if game.gamemode == "ai":
+                                game.unselect_piece()
+                                game.show_pieces(screen)
+                                pygame.display.update()
+
+                                move = ai.eval(board)
+                                initial = move.initial
+                                final = move.final
+                                # piece
+                                piece = board.squares[initial.row][initial.col].piece
+                                # capture
+                                captured = board.squares[final.row][final.col].has_piece()
+                                # move
+                                board.move(piece, move)
+                                game.play_sound(captured)
+                                # draw
+                                game.show_bg(screen)
+                                game.show_pieces(screen)
+                                # next -> AI
+                                game.next_turn()
+
+                    game.unselect_piece()
+                    
                     dragger.undrag_piece()
 
                 elif event.type == pygame.KEYDOWN:           # key pressed
                     
+                    if event.key == pygame.K_a:             # change gamemode
+                        game.change_gamemode()
+
                     # chnaging themes
                     if event.key == pygame.K_t:
                         game.change_theme()
 
+
+                    # depth
+                    if event.key == pygame.K_3:
+                        ai.depth = 3
+
+                    if event.key == pygame.K_4:
+                        ai.depth = 4
+
                     if event.key == pygame.K_r:
                         game.reset()
-                        # screen = self.screen
+
+                        screen = self.screen
                         game = self.game
                         board = self.game.board
+                        ai = self.game.ai
                         dragger = self.game.dragger
+
+                    # if event.key == pygame.K_r:
+                    #     game.reset()
+                    #     # screen = self.screen
+                    #     game = self.game
+                    #     board = self.game.board
+                    #     dragger = self.game.dragger
                 elif event.type==pygame.QUIT:                ## quit application
                     pygame.quit()
                     sys.exit()
         
             pygame.display.update()
-pygame.init()
-pygame.mixer.init()
+# pygame.init()
+# pygame.mixer.init()
 main = Main()
 main.mainloop()

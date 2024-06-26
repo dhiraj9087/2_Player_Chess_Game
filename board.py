@@ -345,6 +345,7 @@ class Board:
                                     piece.add_move(move)
                             else:
                                 piece.add_move(move)
+                            break
                             
                         # has team piece = break
                         elif self.squares[possible_move_row][possible_move_col].has_team_piece(piece.color):

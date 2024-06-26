@@ -5,6 +5,8 @@ from square import Square
 from piece import *
 from dragger import *
 from config import Config
+from ai import AI
+
 
 class Game:
     
@@ -15,6 +17,9 @@ class Game:
         self.dragger = Dragger()
         self.config = Config()
         self.result = None
+        self.selected_piece = None
+        self.ai = AI()
+        self.gamemode = 'ai'
 
     def show_result(self, surface):
         if self.result:
@@ -58,21 +63,35 @@ class Game:
                     # blit
                     surface.blit(lbl, lbl_pos)
                 
-    def show_pieces(self,surface):
+    def show_pieces(self, surface):
         for row in range(ROWS):
             for col in range(COLS):
+                # piece ?
                 if self.board.squares[row][col].has_piece():
                     piece = self.board.squares[row][col].piece
+                    # for dragger
+                    if piece is not self.selected_piece:
+                        piece.set_texture()
+                        texture = piece.texture
+                        img = pygame.image.load(texture)
+                        img_center = col * SQSIZE + SQSIZE // 2, row * SQSIZE + SQSIZE // 2
+                        piece.texture_rect = img.get_rect(center=img_center)
+                        surface.blit(img, piece.texture_rect)
+    # def show_pieces(self,surface):
+    #     for row in range(ROWS):
+    #         for col in range(COLS):
+    #             if self.board.squares[row][col].has_piece():
+    #                 piece = self.board.squares[row][col].piece
                     
-                    ## all except dragger piece
-                    if piece is not self.dragger.piece:
-                        piece.set_texture(size=80)
-                        img = pygame.image.load(piece.texture)                            ## taking image from assests
+    #                 ## all except dragger piece
+    #                 if piece is not self.dragger.piece:
+    #                     piece.set_texture(size=80)
+    #                     img = pygame.image.load(piece.texture)                            ## taking image from assests
 
-                        img_center = col * SQSIZE + SQSIZE// 2, row * SQSIZE + SQSIZE// 2   ## image center
+    #                     img_center = col * SQSIZE + SQSIZE// 2, row * SQSIZE + SQSIZE// 2   ## image center
 
-                        piece.texture_rect  = img.get_rect(center = img_center)      ## 
-                        surface.blit(img,piece.texture_rect)                                ## to draw one img on other 
+    #                     piece.texture_rect  = img.get_rect(center = img_center)      ## 
+    #                     surface.blit(img,piece.texture_rect)                                ## to draw one img on other 
 
     def show_moves(self,surface):
         theme = self.config.theme
@@ -132,6 +151,15 @@ class Game:
 
     def change_theme(self):
         self.config.change_theme()
+
+    def change_gamemode(self):
+        self.gamemode = 'ai' if self.gamemode == 'pvp' else 'pvp'
+
+    def select_piece(self, piece):
+        self.selected_piece = piece
+    
+    def unselect_piece(self):
+        self.selected_piece = None
 
     def play_sound(self,captured = False):
         if captured:

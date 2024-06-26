@@ -64,7 +64,7 @@ class King(Piece):
     def __init__(self,color):
        self.left_rook = None
        self.right_rook= None 
-       super().__init__('king',color,math.inf)
+       super().__init__('king',color,10000.0)
     
     def add_move(self, move):
         # print(f"Adding move for King: {move.initial.row},{move.initial.col} to {move.final.row},{move.final.col}")
