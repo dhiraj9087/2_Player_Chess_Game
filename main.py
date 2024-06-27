@@ -49,16 +49,16 @@ class Main:
                         piece = board.squares[clicked_row][clicked_col].piece
                         # valid piece (color)?
                         if piece.color == game.next_player:
-                            print(f"Piece clicked:---> {piece}")
+                            # print(f"Piece clicked:---> {piece}")
                             # print(f"Square clicked: {(clicked_row,clicked_col)}")
-                            for move in piece.moves:
-                                print(f"Move to------> ({move.final.row}, {move.final.col})")
+                            # for move in piece.moves:
+                            #     print(f"Move to------> ({move.final.row}, {move.final.col})")
                             # print(f"Piece moves:---> {piece.moves}")
                             
-                            if isinstance(piece, King):
-                                print("Valid Moves for King:")
-                                for move in piece.moves:
-                                    print(f"Move to -->>> ({move.final.row}, {move.final.col})")
+                            # if isinstance(piece, King):
+                            #     # print("Valid Moves for King:")
+                            #     for move in piece.moves:
+                            #         print(f"Move to -->>> ({move.final.row}, {move.final.col})")
 
 
                             board.calc_moves(piece,clicked_row,clicked_col,bool=True)

@@ -19,7 +19,7 @@ class Board:
         final = move.final
 
         # Debug print statement
-        print(f"Moving {piece} from {initial.row},{initial.col} to {final.row},{final.col}")
+        # print(f"Moving {piece} from {initial.row},{initial.col} to {final.row},{final.col}")
         en_passant_empty = self.squares[final.row][final.col].isempty()
 
         # console board move update
@@ -53,10 +53,10 @@ class Board:
 
                 # Ensure rook has moves before accessing the last move
                 if rook and rook.moves:
-                    print("Castling with rook")
+                    # print("Castling with rook")
                     self.move(rook, rook.moves[-1])
-                else:
-                    print("Error: Rook has no available moves for castling")
+                # else:
+                #     print("Error: Rook has no available moves for castling")
 
         # move  
         piece.moved = True
@@ -170,7 +170,7 @@ class Board:
                     for m in p.moves:
                         # print(f"Move to ({m.final.row}, {m.final.col})")
                         if isinstance(m.final.piece, King):
-                            print(f"Move {move} puts the king in check by piece {p} at position ({row}, {col})")
+                            # print(f"Move {move} puts the king in check by piece {p} at position ({row}, {col})")
                             return True
         return False
 

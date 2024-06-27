@@ -158,11 +158,14 @@ class AI:
     def minimax(self, board, depth, maximizing, alpha, beta):  # minmax algorithm
         if depth == 0:
             return self.static_eval(board), None # eval, move
-        best_move = None
+        # best_move = None
         # white
         if maximizing:
             max_eval = -math.inf
             moves = self.get_moves(board, 'white')
+            # for move in moves:
+            #     print(move,"----moves of white----")
+            # print()
             for move in moves:
                 self.explored += 1
                 piece = board.squares[move.initial.row][move.initial.col].piece
@@ -176,7 +179,8 @@ class AI:
 
                 alpha = max(alpha, max_eval)
                 if beta <= alpha: break
-
+            if len(moves)==0:
+                return -math.inf, None
             if not best_move:
                 best_move = moves[0]
 
